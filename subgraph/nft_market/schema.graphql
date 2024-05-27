@@ -1,0 +1,78 @@
+type Buy @entity(immutable: true) {
+	id: Bytes!
+	orderId: BigInt! # uint256
+	buyer: Bytes! # address
+	tokenId: BigInt! # uint256
+	price: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+}
+
+type OrderCreated @entity(immutable: false) {
+	id: String!
+	orderId: BigInt! # uint256
+	creator: Bytes! # address
+	price: BigInt! # uint256
+	nft: Bytes! # address
+	tokenId: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+	isClosed: Boolean!
+	proposals: [ProposalCreated!]! @derivedFrom(field: "order")
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+	id: Bytes!
+	previousOwner: Bytes! # address
+	newOwner: Bytes! # address
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+}
+
+type ProposalCanceled @entity(immutable: true) {
+	id: Bytes!
+	proposeId: BigInt! # uint256
+	proposer: Bytes! # address
+	proposedPrice: BigInt! # uint256
+	nft: Bytes! # address
+	tokenId: BigInt! # uint256
+	nftOwner: Bytes! # address
+	orderId: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+}
+
+type ProposalCreated @entity(immutable: false) {
+	id: String!
+	proposeId: BigInt! # uint256
+	proposer: Bytes! # address
+	proposedPrice: BigInt! # uint256
+	nft: Bytes! # address
+	tokenId: BigInt! # uint256
+	nftOwner: Bytes! # address
+	orderId: BigInt! # uint256
+	order: OrderCreated!
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+	isClosed: Boolean!
+	isOrderClosed: Boolean!
+}
+
+type ProposalSelected @entity(immutable: true) {
+	id: Bytes!
+	proposeId: BigInt! # uint256
+	proposer: Bytes! # address
+	proposedPrice: BigInt! # uint256
+	nft: Bytes! # address
+	tokenId: BigInt! # uint256
+	nftOwner: Bytes! # address
+	orderId: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+}
