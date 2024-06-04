@@ -1,3 +1,5 @@
 {
-  "MarketModule#Market": "0x2bE0bC9d5A733fF6b31f34361dDe0780047805A5"
+  "MarketModule#Market": "0x2bE0bC9d5A733fF6b31f34361dDe0780047805A5",
+  "GameItemsModule#GameItems": "0x8ce4abbc1B49be037F6F54b06a9C4AF481bBEFD9",
+  "OrderbookModule#Orderbook": "0x4CC67940c9bE7C8bA24969a2e7092294e94c5e2a"
 }

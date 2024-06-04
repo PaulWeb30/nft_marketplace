@@ -1,4 +1,3 @@
-import { log } from '@graphprotocol/graph-ts'
 import {
 	Buy as BuyEvent,
 	OrderCreated as OrderCreatedEvent,

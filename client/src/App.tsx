@@ -4,6 +4,7 @@ import { nft_abi } from './abi/nft'
 
 import Button from '@mui/material/Button'
 import { Layout } from './components/Layout'
+import { nft_address } from './config'
 
 function App() {
 	const pc = usePublicClient()
@@ -12,7 +13,7 @@ function App() {
 	const mintNft = async () => {
 		const txHash = await writeContractAsync({
 			chainId: sepolia.id,
-			address: '0x86B247580E09AB23c388d640c2e325Cf26B5d44d',
+			address: nft_address,
 			abi: nft_abi,
 			functionName: 'mint',
 			account: '0xBae119015934E3C8FeB3063aaCB0949Ba4116aFd',

@@ -36,6 +36,9 @@ export const Layout: React.FC<{
 						<Button sx={{ color: '#fff' }}>
 							<Link to={'/orders'}>Orders</Link>
 						</Button>
+						<Button sx={{ color: '#fff' }}>
+							<Link to={'/orderbook'}>Orderbook</Link>
+						</Button>
 						{account.isConnected ? (
 							<>
 								<Typography variant='h6' color={'white'}>

@@ -23,7 +23,7 @@ export const Nfts = () => {
 	const pc = usePublicClient()
 	const { writeContractAsync } = useWriteContract()
 
-	const [value, setValue] = useState<string>('0.00001')
+	const [value, setValue] = useState<string>('0.00063')
 	const [loading, setLoading] = useState<boolean>(true)
 	const [nfts, setNfts] = React.useState<Root | null>(null)
 

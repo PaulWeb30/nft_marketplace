@@ -21,6 +21,5 @@ contract ReyvelNFT is ERC721URIStorage, Ownable(msg.sender) {
         counter++;
         return newItemId;       
     }
-
     
 }
