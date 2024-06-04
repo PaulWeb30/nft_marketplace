@@ -26,12 +26,14 @@ describe("Describe entity assertions", () => {
     )
     let tokenId = BigInt.fromI32(234)
     let amount = BigInt.fromI32(234)
+    let pricePerOne = BigInt.fromI32(234)
     let newBuyOrderCreatedEvent = createBuyOrderCreatedEvent(
       id,
       creator,
       tokenAddress,
       tokenId,
-      amount
+      amount,
+      pricePerOne
     )
     handleBuyOrderCreated(newBuyOrderCreatedEvent)
   })
@@ -69,6 +71,12 @@ describe("Describe entity assertions", () => {
       "BuyOrderCreated",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
       "amount",
+      "234"
+    )
+    assert.fieldEquals(
+      "BuyOrderCreated",
+      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
+      "pricePerOne",
       "234"
     )
 

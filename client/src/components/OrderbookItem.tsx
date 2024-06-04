@@ -1,5 +1,5 @@
-import { Box, Button, TextField } from '@mui/material'
-import { useState } from 'react'
+import { Box, Button, TextField, Typography } from '@mui/material'
+import { FC, useState } from 'react'
 import { parseEther } from 'viem'
 import { gameItems_abi } from '../abi/gameItems'
 import { localhost } from 'wagmi/chains'
@@ -7,8 +7,10 @@ import { useWriteContract, usePublicClient } from 'wagmi'
 import { gameItems_address, orderbook_address } from '../config'
 import { orderbook_abi } from '../abi/orderbook'
 import { useQueryClient } from '@tanstack/react-query'
+import { Result } from '../types'
+import { Nft } from './Nft'
 
-export const OrderbookItem = () => {
+export const OrderbookItem: FC<{ nft: Result }> = ({ nft }) => {
 	const queryClient = useQueryClient()
 	const pc = usePublicClient()
 	const { writeContractAsync, error } = useWriteContract()
@@ -23,7 +25,7 @@ export const OrderbookItem = () => {
 
 		const approveHash = await writeContractAsync({
 			chainId: localhost.id,
-			address: gameItems_address,
+			address: nftAddress,
 			abi: gameItems_abi,
 			functionName: 'setApprovalForAll',
 			args: [orderbook_address, true],
@@ -42,7 +44,13 @@ export const OrderbookItem = () => {
 			address: orderbook_address,
 			abi: orderbook_abi,
 			functionName: 'createBuyOrder',
-			args: [0n, gameItems_address, BigInt(amount), price, gameItems_address],
+			args: [
+				tokenId,
+				gameItems_address,
+				BigInt(amount),
+				price,
+				gameItems_address,
+			],
 			value: price * BigInt(amount),
 		})
 
@@ -74,11 +82,18 @@ export const OrderbookItem = () => {
 				value={amount}
 				onChange={e => setAmount(e.target.value)}
 			/>
-			<Button variant='contained' onClick={createBuyOrder}>
-				Create buy order
+			<Nft img={nft.token_uri} name={nft.name} />
+			<Typography variant='h4' color={'primary'}>
+				{nft.amount}
+			</Typography>
+			<Button
+				variant='contained'
+				onClick={() => createSellOrder(nft.token_id, nft.token_address)}
+			>
+				Create sell order
 			</Button>
 			<Button variant='contained' onClick={createBuyOrder}>
-				Create sell order
+				Create buy order
 			</Button>
 		</Box>
 	)
