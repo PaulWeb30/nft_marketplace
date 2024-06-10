@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Moralis = require('moralis').default
-
+const fs = require('fs')
 const express = require('express')
 const cors = require('cors')
 
@@ -26,7 +26,7 @@ app.get('/nfts/:address/:chainId', async (req, res) => {
 			chain: chainId,
 			format: 'decimal',
 			mediaItems: false,
-			limit: 10,
+			limit: 20,
 			address,
 		})
 
@@ -65,6 +65,18 @@ app.get('/nft/:address/:chainId/:tokenId', async (req, res) => {
 		console.error('Error happened', e)
 	}
 })
+
+app.get('/nft/metadata/:tokenId', async (req, res) => {
+	const { tokenId } = req.params
+	console.log(tokenId)
+	fs.readFile(`./metadata/${tokenId}.json`, (err, json) => {
+		console.log('JSON', json)
+		let obj = JSON.parse(json)
+		res.json(obj)
+	})
+})
+
+app.use('/metadata', express.static('metadata'))
 
 const startServer = async () => {
 	await Moralis.start({

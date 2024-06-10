@@ -42,7 +42,7 @@ export const ORDERS_QUERY = gql`
 `
 
 export const PROPOSALS_QUERY = gql`
-	query OrdersQuery {
+	query ProposalsQuery {
 		proposalCreateds(first: 10) {
 			id
 			isClosed
@@ -53,6 +53,36 @@ export const PROPOSALS_QUERY = gql`
 			proposedPrice
 			proposer
 			tokenId
+		}
+	}
+`
+
+export const OREDERBOOK_SELLS_QUERY = gql`
+	query SellOrdersQuery {
+		sellOrderCreateds {
+			amount
+			blockNumber
+			creator
+			id
+			isClosed
+			pricePerOne
+			tokenAddress
+			tokenId
+		}
+	}
+`
+
+export const OREDERBOOK_BUYS_QUERY = gql`
+	query BuyOrdersQuery {
+		buyOrderCreateds(first: 5) {
+			id
+			Orderbook_id
+			creator
+			tokenAddress
+			isClosed
+			pricePerOne
+			tokenId
+			amount
 		}
 	}
 `

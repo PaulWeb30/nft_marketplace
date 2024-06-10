@@ -1,77 +1,79 @@
-type BuyOrderCreated @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type BuyOrderCreated @entity(immutable: false) {
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+	isClosed: Boolean!
 }
 
 type BuyOrderRemoved @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
 }
 
 type BuyOrderUpdated @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
 }
 
-type SellOrderCreated @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type SellOrderCreated @entity(immutable: false) {
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
+	isClosed: Boolean!
 }
 
 type SellOrderRemoved @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
 }
 
 type SellOrderUpdated @entity(immutable: true) {
-  id: Bytes!
-  Orderbook_id: Bytes! # bytes32
-  creator: Bytes! # address
-  tokenAddress: Bytes! # address
-  tokenId: BigInt! # uint256
-  amount: BigInt! # uint256
-  pricePerOne: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+	id: Bytes!
+	Orderbook_id: Bytes! # bytes32
+	creator: Bytes! # address
+	tokenAddress: Bytes! # address
+	tokenId: BigInt! # uint256
+	amount: BigInt! # uint256
+	pricePerOne: BigInt! # uint256
+	blockNumber: BigInt!
+	blockTimestamp: BigInt!
+	transactionHash: Bytes!
 }

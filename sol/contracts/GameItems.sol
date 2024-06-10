@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract GameItems is ERC1155 {
-    string public name = "GGItems";
+    string public name = "GameItems";
     string public symbol = "GIG";
 
     address owner;
@@ -19,7 +19,7 @@ contract GameItems is ERC1155 {
         require(msg.sender == owner, "You are not owner");
         _;
     }
-    constructor() ERC1155("https://i.redd.it/e0d41nsm4ps71.jpg") {
+    constructor() ERC1155("http://localhost:4000/metadata/{id}.json") {
         owner = msg.sender;
         _mint(msg.sender, GOLD, 777, "");
         _mint(msg.sender, SILVER, 100, "");
@@ -37,7 +37,6 @@ contract GameItems is ERC1155 {
     }
 
     function uri(uint256 tokenId) public pure override returns (string memory) {
-        // return string(abi.encodePacked("https://game.example/api/item/", Strings.toString(tokenId), ".json"));
-        return "https://i.redd.it/e0d41nsm4ps71.jpg";
+        return string(abi.encodePacked("http://localhost:4000/metadata/", Strings.toString(tokenId), ".json"));
     }
 }

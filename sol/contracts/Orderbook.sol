@@ -44,6 +44,7 @@ contract Orderbook {
 
 	function createSellOrder(uint256 tokenId, address tokenAddress, uint256 amount, uint256 pricePerOne, bytes32 insertionId) 
 	public {
+		require(amount > 0, "Lack of amount");
 		IERC1155 token = IERC1155(tokenAddress);
 		require(token.isApprovedForAll(msg.sender, address(this)), "Approve failed");
 		require(token.balanceOf(msg.sender, tokenId) >= amount, "Insufficient Tokens balance");
@@ -66,13 +67,14 @@ contract Orderbook {
 		
 		sellInfo[id] = sellOrder;
 		linkedListSell.insertAfterNode(insertionId, id, amount, pricePerOne);
-		matchSellOrder(id);
-
 		emit SellOrderCreated(id, msg.sender, tokenAddress, tokenId, amount, pricePerOne);
+		
+		matchSellOrder(id);
 	}
 
 	function createBuyOrder(uint256 tokenId, address tokenAddress, uint256 amount, uint256 pricePerOne, bytes32 insertionId) 
 	public payable {
+		require(amount > 0, "Lack of amount");
 		require(msg.value >= amount * pricePerOne, "Lack of ETH");
 		IERC1155 token = IERC1155(tokenAddress);
 		require(token.isApprovedForAll(msg.sender, address(this)), "Approve failed");
@@ -95,9 +97,10 @@ contract Orderbook {
 
 		buyInfo[id] = buyOrder;
 		linkedListBuy.insertAfterNode(insertionId, id, amount, pricePerOne);
-		matchBuyOrder(id);
 
 		emit BuyOrderCreated(id, msg.sender, tokenAddress, tokenId, amount, pricePerOne);
+
+		matchBuyOrder(id);
 	}
 
 	function matchBuyOrder(bytes32 buyId) public {
@@ -128,11 +131,11 @@ contract Orderbook {
 
 				uint256 buyNewAmount = buyAmount - sellOrderAmount;
 				linkedListBuy.updateNodeData(buyId, buyNewAmount, buyPrice);
-				buyInfo[buyId].amount = buyAmount;
+				buyInfo[buyId].amount = buyNewAmount;
 
 				tokensToSend = sellOrderAmount;
 				
-				emit BuyOrderUpdated(buyId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
+				emit BuyOrderUpdated(buyId, buyOrderCreator, tokenAddress, tokenId, buyNewAmount, buyPrice);
 				emit SellOrderRemoved(bestSellOrderId, sellOrderCreator, tokenAddress, tokenId, sellOrderAmount, sellOrderPrice);
 			} else if (diff < 0) {
 				delete buyInfo[buyId];
@@ -143,7 +146,7 @@ contract Orderbook {
 				sellInfo[bestSellOrderId].amount = sellNewAmount;
 				ethToSend = (sellOrderAmount - sellNewAmount) * sellOrderPrice;
 
-				emit SellOrderUpdated(buyId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
+				emit SellOrderUpdated(bestSellOrderId, sellOrderCreator, tokenAddress, tokenId, sellNewAmount, sellOrderPrice);
 				emit BuyOrderRemoved(buyId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
 			} else {
 				linkedListSell.removeNode(bestSellOrderId);
@@ -194,7 +197,7 @@ contract Orderbook {
 				buyInfo[bestBuyOrderId].amount = buyNewAmount;
 				tokensToSend = sellOrderAmount;
 
-				emit BuyOrderUpdated(bestBuyOrderId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
+				emit BuyOrderUpdated(bestBuyOrderId, buyOrderCreator, tokenAddress, tokenId, buyNewAmount, buyPrice);
 				emit SellOrderRemoved(sellId, sellOrderCreator, tokenAddress, tokenId, sellOrderAmount, sellOrderPrice);
 			} else if (diff < 0) {
 				delete buyInfo[bestBuyOrderId];
@@ -205,7 +208,7 @@ contract Orderbook {
 				sellInfo[sellId].amount = sellNewAmount;
 				ethToSend = (sellOrderAmount - sellNewAmount) * sellOrderPrice;
 
-				emit SellOrderUpdated(sellId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
+				emit SellOrderUpdated(sellId, sellOrderCreator, tokenAddress, tokenId, sellNewAmount, sellOrderPrice);
 				emit BuyOrderRemoved(bestBuyOrderId, buyOrderCreator, tokenAddress, tokenId, buyAmount, buyPrice);
 			} else {
 				linkedListSell.removeNode(sellId);

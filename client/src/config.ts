@@ -15,6 +15,7 @@ const gameItems_address = String(
 ) as `0x${string}`
 
 const subgraphApi = String(import.meta.env.VITE_SUBGRAPH_API)
+const subgraphOrderbookApi = String(import.meta.env.VITE_ORDERBOOK_SUBGRAPH_API)
 const moralisApi = String(import.meta.env.VITE_MORALIS_API)
 
 export {
@@ -24,4 +25,5 @@ export {
 	moralisApi,
 	orderbook_address,
 	gameItems_address,
+	subgraphOrderbookApi,
 }

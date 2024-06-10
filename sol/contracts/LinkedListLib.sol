@@ -35,7 +35,7 @@ library LinkedListLib {
     function insertAfterNode(Storage storage S, bytes32 insertAfterId, bytes32 id, uint256 amount, uint256 pricePerOne) internal {
         require(S.nodes[id].next == bytes32(0), "Node already exists");
         if(insertAfterId != bytes32(0)) {
-            require(S.nodes[insertAfterId].next != bytes32(0), "Insertion node does not exist");
+            require(S.nodes[insertAfterId].pricePerOne != 0, "Insertion node does not exist");
         
             Node memory insertNode = S.nodes[insertAfterId];
             S.nodes[id] = Node({id: id, amount: amount,pricePerOne: pricePerOne, next: insertNode.next});

@@ -73,3 +73,23 @@ type QueryResult = {
 	proposalCanceleds: ProposalCanceled[]
 	proposalCreateds: ProposalCreated[]
 }
+
+export type SellOrderCreated = {
+	id: `0x${string}`
+	pricePerOne: bigint
+	isClosed: boolean
+	tokenId: bigint
+	amount: bigint
+	creator: `0x${string}`
+	tokenAddress: `0x${string}`
+}
+
+export type BuyOrderCreated = {
+	id: `0x${string}`
+	pricePerOne: bigint
+	isClosed: boolean
+	tokenId: bigint
+	amount: bigint
+	creator: `0x${string}`
+	tokenAddress: `0x${string}`
+}

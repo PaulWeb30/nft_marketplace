@@ -1,17 +1,6 @@
 export const orderbook_abi = [
 	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_linkedListSell',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_linkedListBuy',
-				type: 'address',
-			},
-		],
+		inputs: [],
 		stateMutability: 'nonpayable',
 		type: 'constructor',
 	},
@@ -46,6 +35,12 @@ export const orderbook_abi = [
 				indexed: false,
 				internalType: 'uint256',
 				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
 				type: 'uint256',
 			},
 		],
@@ -85,8 +80,186 @@ export const orderbook_abi = [
 				name: 'amount',
 				type: 'uint256',
 			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
+				type: 'uint256',
+			},
+		],
+		name: 'BuyOrderRemoved',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'bytes32',
+				name: 'id',
+				type: 'bytes32',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'creator',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'tokenAddress',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
+				type: 'uint256',
+			},
+		],
+		name: 'BuyOrderUpdated',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'bytes32',
+				name: 'id',
+				type: 'bytes32',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'creator',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'tokenAddress',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
+				type: 'uint256',
+			},
 		],
 		name: 'SellOrderCreated',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'bytes32',
+				name: 'id',
+				type: 'bytes32',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'creator',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'tokenAddress',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
+				type: 'uint256',
+			},
+		],
+		name: 'SellOrderRemoved',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'bytes32',
+				name: 'id',
+				type: 'bytes32',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'creator',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'tokenAddress',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'pricePerOne',
+				type: 'uint256',
+			},
+		],
+		name: 'SellOrderUpdated',
 		type: 'event',
 	},
 	{
@@ -196,12 +369,38 @@ export const orderbook_abi = [
 	},
 	{
 		inputs: [],
+		name: 'getBuyHead',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'getSellHead',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
 		name: 'linkedListBuy',
 		outputs: [
 			{
-				internalType: 'contract LinkedList',
-				name: '',
-				type: 'address',
+				internalType: 'bytes32',
+				name: 'head',
+				type: 'bytes32',
 			},
 		],
 		stateMutability: 'view',
@@ -212,9 +411,9 @@ export const orderbook_abi = [
 		name: 'linkedListSell',
 		outputs: [
 			{
-				internalType: 'contract LinkedList',
-				name: '',
-				type: 'address',
+				internalType: 'bytes32',
+				name: 'head',
+				type: 'bytes32',
 			},
 		],
 		stateMutability: 'view',
