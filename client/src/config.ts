@@ -18,6 +18,10 @@ const subgraphApi = String(import.meta.env.VITE_SUBGRAPH_API)
 const subgraphOrderbookApi = String(import.meta.env.VITE_ORDERBOOK_SUBGRAPH_API)
 const moralisApi = String(import.meta.env.VITE_MORALIS_API)
 
+const offMarket_address = String(
+	import.meta.env.VITE_OFFMARKET_ADDRESS
+) as `0x${string}`
+
 export {
 	market_address,
 	nft_address,
@@ -26,4 +30,5 @@ export {
 	orderbook_address,
 	gameItems_address,
 	subgraphOrderbookApi,
+	offMarket_address,
 }

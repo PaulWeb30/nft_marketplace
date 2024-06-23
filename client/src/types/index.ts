@@ -93,3 +93,16 @@ export type BuyOrderCreated = {
 	creator: `0x${string}`
 	tokenAddress: `0x${string}`
 }
+
+export type OffOrder = {
+	_id: string
+	nonce: bigint
+	tokenId: bigint
+	creator: `0x${string}`
+	nftAddress: `0x${string}`
+	signature: `0x${string}`
+	name: string
+	tokenUri: string
+	price: bigint
+	isClosed: boolean
+}

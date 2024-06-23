@@ -1,3 +1,4 @@
 {
-  "OrderbookModule#Orderbook": "0x9C95e6Fba637ad9cA7cD6906Dd585DdbE35ac0Fa"
+  "OrderbookModule#Orderbook": "0x9C95e6Fba637ad9cA7cD6906Dd585DdbE35ac0Fa",
+  "OffChainMarketModule#OffChainMarket": "0x76a627BC6A82Db3CD64F0BB27dAB72D3A70674B1"
 }

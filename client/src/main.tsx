@@ -13,6 +13,7 @@ import { Orders } from './pages/Orders.tsx'
 import { Nfts } from './pages/Nfts.tsx'
 import { Erc1155Items } from './pages/Erc1155Items.tsx'
 import { Orderbook } from './pages/Orderbook.tsx'
+import { OffChainOrders } from './pages/OffChainOrders.tsx'
 
 globalThis.Buffer = Buffer
 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
 	{
 		path: '/orderbook',
 		element: <Orderbook />,
+	},
+	{
+		path: '/offchain',
+		element: <OffChainOrders />,
 	},
 ])
 

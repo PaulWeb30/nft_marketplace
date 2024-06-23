@@ -3,9 +3,13 @@ const Moralis = require('moralis').default
 const fs = require('fs')
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const Order = require('./schema/Order')
 
 const app = express()
 const port = 4000
+
+app.use(express.json())
 
 app.use(
 	cors({
@@ -78,14 +82,97 @@ app.get('/nft/metadata/:tokenId', async (req, res) => {
 
 app.use('/metadata', express.static('metadata'))
 
-const startServer = async () => {
-	await Moralis.start({
-		apiKey: process.env.MORALIS_API_KEY,
-	})
+app.post('/order', async (req, res) => {
+	const {
+		tokenId,
+		nonce,
+		creator,
+		nftAddress,
+		signature,
+		name,
+		tokenUri,
+		price,
+	} = req.body
 
-	app.listen(port, () => {
-		console.log(`Marketplace server listening on port ${port}`)
-	})
+	try {
+		const order = new Order({
+			tokenId,
+			nonce,
+			creator,
+			nftAddress,
+			signature,
+			tokenUri,
+			name,
+			price,
+		})
+		await order.save()
+
+		return res.status(200).json({ order })
+	} catch (e) {
+		res.status(400).json({
+			sucess: false,
+			response: null,
+			error: e,
+		})
+		console.error('Error happened', e)
+	}
+})
+
+app.get('/orders', async (req, res) => {
+	try {
+		const orders = await Order.find()
+
+		return res.status(200).json({ orders })
+	} catch (e) {
+		res.status(400).json({
+			sucess: false,
+			response: null,
+			error: e,
+		})
+		console.error('Error happened', e)
+	}
+})
+
+app.patch('/order/:id', async (req, res) => {
+	try {
+		const { id } = req.params
+		const order = Order.findOne({ _id: id })
+
+		const updatedOrder = await Order.findOneAndUpdate(
+			{ _id: id },
+			{ isClosed: true },
+			{ new: true }
+		)
+
+		return res.status(200).json({ order: updatedOrder })
+	} catch (e) {
+		res.status(400).json({
+			sucess: false,
+			response: null,
+			error: e,
+		})
+		console.error('Error happened', e)
+	}
+})
+
+const startServer = async () => {
+	try {
+		await Moralis.start({
+			apiKey: process.env.MORALIS_API_KEY,
+		})
+
+		await mongoose.connect(process.env.DB_URL, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		})
+		console.log('DB successfully started')
+
+		app.listen(port, () => {
+			console.log(`Marketplace server listening on port ${port}`)
+		})
+	} catch (e) {
+		console.error('Server error', e.message)
+	}
 }
 
 startServer()
